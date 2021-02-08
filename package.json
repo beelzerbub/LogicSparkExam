@@ -4,7 +4,10 @@
   "description": "Login Spark Co,.LTD Exam",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build && node build/index.js",
+    "start:dev": "nodemon",
+    "build": "rimraf ./build && tsc"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,12 @@
   "bugs": {
     "url": "https://github.com/beelzerbub/LogicSparkExam/issues"
   },
-  "homepage": "https://github.com/beelzerbub/LogicSparkExam#readme"
+  "homepage": "https://github.com/beelzerbub/LogicSparkExam#readme",
+  "devDependencies": {
+    "@types/node": "^14.14.25",
+    "nodemon": "^2.0.7",
+    "rimraf": "^3.0.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  }
 }
