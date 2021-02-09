@@ -35,8 +35,8 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-  return knex
-    .dropTableIfExits("product_groups")
-    .dropTableIfExits("products")
-    .dropTableIfExits("categories");
+  return knex.schema
+    .dropTableIfExists("product_groups")
+    .dropTableIfExists("products")
+    .dropTableIfExists("categories");
 };
