@@ -1,3 +1,4 @@
+import { promises } from "fs";
 import knex from "knex";
 import config from "../../knexfile";
 import { CategoryData, ICategory } from "./categoryData";
@@ -9,7 +10,9 @@ export const add = async (data: ICategory) => {
   return id;
 };
 
-const get = () => {};
+export const getAll = () => {
+  return db("categories");
+};
 
 const update = () => {};
 
