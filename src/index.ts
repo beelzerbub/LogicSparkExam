@@ -1,5 +1,5 @@
 import bodyParser from "body-parser";
-import express, { Request, Response } from "express";
+import express, { Request, response, Response } from "express";
 import { ICategory } from "./models/categoryData";
 import { add, getAll } from "./models/dbHelper";
 const app = express();
@@ -31,6 +31,10 @@ app.post("/api/category/", (req: Request, res: Response) => {
       console.error(error);
       res.status(500).json({ message: "Cannot add category" });
     });
+});
+
+app.use((req, res, next) => {
+  res.status(404).send({ message: `Service Not Found` });
 });
 
 app.listen(port, () => {
