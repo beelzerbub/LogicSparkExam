@@ -3,12 +3,14 @@ exports.up = function (knex) {
     .createTable("categories", (table) => {
       table.increments("id").primary();
       table.string("category_name", 50).notNullable();
+      table.unique("category_name");
       table.timestamp("create_at").notNullable().defaultTo(knex.fn.now());
       table.timestamp("update_at").notNullable().defaultTo(knex.fn.now());
     })
     .createTable("products", (table) => {
       table.increments("id").primary();
       table.string("product_name", 50).notNullable();
+      table.unique("product_name");
       table.integer("product_group_id").unsigned();
       table.timestamp("create_at").notNullable().defaultTo(knex.fn.now());
       table.timestamp("update_at").notNullable().defaultTo(knex.fn.now());
