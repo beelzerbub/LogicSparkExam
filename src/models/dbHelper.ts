@@ -1,4 +1,3 @@
-import { promises } from "fs";
 import knex from "knex";
 import config from "../../knexfile";
 import { CategoryData, ICategory } from "./categoryData";
