@@ -1,7 +1,7 @@
 const { from } = require("rxjs");
 const { switchMap } = require("rxjs/operators");
 exports.up = function (knex) {
-  const createProductTable = () => {
+  const createTable = () => {
     return from(
       knex.schema.createTable("products", (table) => {
         table.increments("id").primary();
@@ -13,10 +13,10 @@ exports.up = function (knex) {
     );
   };
 
-  const addInitialProductData = () => {
+  const addInitialData = () => {
     return knex("products").insert([
       {
-        product_name: "Shadown in the Cloud",
+        product_name: "Shadow in the Cloud",
       },
       {
         product_name: "The White Tiger",
@@ -30,8 +30,8 @@ exports.up = function (knex) {
     ]);
   };
 
-  return createProductTable()
-    .pipe(switchMap(() => addInitialProductData()))
+  return createTable()
+    .pipe(switchMap(() => addInitialData()))
     .toPromise();
 };
 
