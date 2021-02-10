@@ -1,20 +1,38 @@
 const { from } = require("rxjs");
 const { switchMap } = require("rxjs/operators");
 exports.up = function (knex) {
-  const createTable = () => {
+  const createProductTable = () => {
     return from(
       knex.schema.createTable("products", (table) => {
         table.increments("id").primary();
         table.string("product_name", 50).notNullable();
         table.unique("product_name");
-        table.integer("product_group_id").unsigned();
         table.timestamp("create_at").notNullable().defaultTo(knex.fn.now());
         table.timestamp("update_at").notNullable().defaultTo(knex.fn.now());
       })
     );
   };
 
-  return createTable().toPromise();
+  const addInitialProductData = () => {
+    return knex("products").insert([
+      {
+        product_name: "Shadown in the Cloud",
+      },
+      {
+        product_name: "The White Tiger",
+      },
+      {
+        product_name: "Locked Down",
+      },
+      {
+        product_name: `No Man's Land`,
+      },
+    ]);
+  };
+
+  return createProductTable()
+    .pipe(switchMap(() => addInitialProductData()))
+    .toPromise();
 };
 
 exports.down = function (knex) {

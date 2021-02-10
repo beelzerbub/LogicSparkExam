@@ -73,7 +73,8 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-  return knex.schema
-    .dropTableIfExists("product_groups")
-    .dropTableIfExists("categories");
+  return knex.schema.dropTableIfExists("categories");
 };
+
+// .dropTableIfExists("product_groups")
+// .dropTableIfExists("products")
