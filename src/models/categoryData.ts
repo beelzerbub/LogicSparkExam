@@ -22,6 +22,7 @@ export class CategoryData {
     this.id = id;
     this.create_at = create_at;
     this.update_at = update_at;
+
     if (category_name) {
       this.category_name = category_name;
     } else {

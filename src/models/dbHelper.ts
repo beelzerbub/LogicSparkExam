@@ -1,11 +1,11 @@
 import knex from "knex";
 import config from "../../knexfile";
-import { CategoryData, ICategory } from "./categoryData";
+// import { CategoryData, ICategory } from "./categoryData";
+
 const db = knex(config.development);
 
-export const add = async (data: ICategory) => {
-  const category = new CategoryData(data);
-  const [id] = await db("categories").insert(category);
+export const add = async <T>(table: string, data: T) => {
+  const [id] = await db(table).insert(data).debug(!!process.env.DEV);
   return id;
 };
 
