@@ -1,10 +1,22 @@
 import { from, of, throwError } from "rxjs";
 import { catchError, concatMap, map, tap, toArray } from "rxjs/operators";
 import { CategoryData, ICategory } from "../models/categoryData";
-import { add, remove, update } from "../models/dbHelper";
+import { add, get, remove, update } from "../models/dbHelper";
 import moment from "moment";
 
 const tableName = "categories";
+
+const handleError = (message: string) => {
+  return throwError({ message }).toPromise();
+};
+
+export const getCategory = (condition: ICategory) => {
+  try {
+    return from(get(tableName, condition)).toPromise();
+  } catch (err) {
+    return handleError(err.message);
+  }
+};
 
 export const addCategory = (input: ICategory | ICategory[]) => {
   try {
@@ -46,7 +58,7 @@ export const addCategory = (input: ICategory | ICategory[]) => {
 
     return result;
   } catch (err) {
-    return throwError({ message: err.message }).toPromise();
+    return handleError(err.message);
   }
 };
 
@@ -56,9 +68,10 @@ export const updateCategory = (id: number, input: ICategory) => {
     data.setUpdateAt(moment().format("YYYY-MM-DD HH:mm:ss"));
     return from(update(tableName, id, data))
       .pipe(catchError((err) => of({ error: err.message })))
+
       .toPromise();
   } catch (err) {
-    return throwError({ message: err.message }).toPromise();
+    return handleError(err.message);
   }
 };
 
@@ -66,6 +79,6 @@ export const deleteCategory = (id: number) => {
   try {
     return remove(tableName, id);
   } catch (err) {
-    return throwError({ message: err.message }).toPromise();
+    return handleError(err.message);
   }
 };
