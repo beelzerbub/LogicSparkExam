@@ -1,15 +1,10 @@
-const { log } = require("console");
-const { from, of, zip, combineLatest, concat } = require("rxjs");
+const { from } = require("rxjs");
 const {
   tap,
   switchMap,
   bufferCount,
   toArray,
-  map,
-  mergeAll,
-  mergeMap,
   concatMap,
-  defaultIfEmpty,
   filter,
 } = require("rxjs/operators");
 
@@ -51,8 +46,8 @@ exports.up = function (knex) {
           .inTable("categories")
           .onDelete("CASCADE")
           .onUpdate("CASCADE");
-        table.timestamp("create_at").notNullable().defaultTo(knex.fn.now());
-        table.timestamp("update_at").notNullable().defaultTo(knex.fn.now());
+        table.timestamp("create_at").defaultTo(knex.fn.now());
+        table.timestamp("update_at").defaultTo(knex.fn.now());
       })
     );
   };

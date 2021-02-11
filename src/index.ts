@@ -1,7 +1,8 @@
 import bodyParser from "body-parser";
-import express, { Request, response, Response } from "express";
+import express, { Request, Response } from "express";
+import { addCategory, updateCategory } from "./controller/categoryController";
 import { ICategory } from "./models/categoryData";
-import { add, getAll } from "./models/dbHelper";
+import { getAll } from "./models/dbHelper";
 const app = express();
 const port = process.env.PORT || 8081;
 
@@ -17,23 +18,32 @@ app.get("/api/categories", (req: Request, res: Response) => {
       res.status(200).json(categories);
     })
     .catch((error) => {
-      console.error(error);
-      res.status(500).json({ message: "Cannot get categories" });
+      res.status(400).json({ message: error.message });
     });
 });
 
 app.post("/api/category/", (req: Request, res: Response) => {
-  add(req.body)
+  addCategory(req.body)
     .then((category) => {
       res.status(200).json(category);
     })
     .catch((error) => {
-      console.error(error);
-      res.status(500).json({ message: "Cannot add category" });
+      res.status(400).json({ message: error.message });
     });
 });
 
-app.use((req, res, next) => {
+app.put("/api/category/:id", (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  updateCategory(id, req.body)
+    .then((category) => {
+      res.status(200).json(category);
+    })
+    .catch((error) => {
+      res.status(400).json({ message: error.message });
+    });
+});
+
+app.use(({}, res, {}) => {
   res.status(404).send({ message: `Service Not Found` });
 });
 

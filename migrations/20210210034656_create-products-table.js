@@ -7,8 +7,8 @@ exports.up = function (knex) {
         table.increments("id").primary();
         table.string("product_name", 50).notNullable();
         table.unique("product_name");
-        table.timestamp("create_at").notNullable().defaultTo(knex.fn.now());
-        table.timestamp("update_at").notNullable().defaultTo(knex.fn.now());
+        table.timestamp("create_at").defaultTo(knex.fn.now());
+        table.timestamp("update_at").defaultTo(knex.fn.now());
       })
     );
   };
