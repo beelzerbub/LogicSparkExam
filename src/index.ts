@@ -18,8 +18,7 @@ app.get("/api/categories", (req: Request, res: Response) => {
       res.status(200).json(categories);
     })
     .catch((error) => {
-      console.error(error);
-      res.status(500).json({ message: "Cannot get categories" });
+      res.status(400).json({ message: error.message });
     });
 });
 
@@ -29,12 +28,11 @@ app.post("/api/category/", (req: Request, res: Response) => {
       res.status(200).json(category);
     })
     .catch((error) => {
-      console.error(error);
-      res.status(500).json({ message: "Cannot add category" });
+      res.status(400).json({ message: error.message });
     });
 });
 
-app.use((req, res, next) => {
+app.use(({}, res, {}) => {
   res.status(404).send({ message: `Service Not Found` });
 });
 
