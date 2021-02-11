@@ -6,7 +6,7 @@ Logic Spark Co.,LTD Exam
 
 ## POSTMAN
 
-[Postman](https://www.getpostman.com/collections/7b27e3869f3920791cbe)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/7b27e3869f3920791cbe)
 
 ---
 
