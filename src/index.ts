@@ -1,6 +1,10 @@
 import bodyParser from "body-parser";
 import express, { Request, Response } from "express";
-import { addCategory, updateCategory } from "./controller/categoryController";
+import {
+  addCategory,
+  deleteCategory,
+  updateCategory,
+} from "./controller/categoryController";
 import { ICategory } from "./models/categoryData";
 import { getAll } from "./models/dbHelper";
 const app = express();
@@ -24,9 +28,7 @@ app.get("/api/categories", (req: Request, res: Response) => {
 
 app.post("/api/category/", (req: Request, res: Response) => {
   addCategory(req.body)
-    .then((category) => {
-      res.status(200).json(category);
-    })
+    .then((result) => res.status(200).json(result))
     .catch((error) => {
       res.status(400).json({ message: error.message });
     });
@@ -35,9 +37,16 @@ app.post("/api/category/", (req: Request, res: Response) => {
 app.put("/api/category/:id", (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   updateCategory(id, req.body)
-    .then((category) => {
-      res.status(200).json(category);
-    })
+    .then((result) => res.status(200).json(result))
+    .catch((error) => {
+      res.status(400).json({ message: error.message });
+    });
+});
+
+app.delete("/api/category/:id", (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  deleteCategory(id)
+    .then((result) => res.status(200).json(result))
     .catch((error) => {
       res.status(400).json({ message: error.message });
     });
@@ -50,5 +59,3 @@ app.use(({}, res, {}) => {
 app.listen(port, () => {
   console.log(`Service now listening to port : ${port}`);
 });
-
-// let db = new sqlite.Database({ filename: "/assets/db.db", driver });
