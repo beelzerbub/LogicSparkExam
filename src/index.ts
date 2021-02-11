@@ -1,8 +1,8 @@
 import bodyParser from "body-parser";
-import express, { Request, response, Response } from "express";
-import { addCategory } from "./controller/categoryController";
+import express, { Request, Response } from "express";
+import { addCategory, updateCategory } from "./controller/categoryController";
 import { ICategory } from "./models/categoryData";
-import { add, getAll } from "./models/dbHelper";
+import { getAll } from "./models/dbHelper";
 const app = express();
 const port = process.env.PORT || 8081;
 
@@ -24,6 +24,17 @@ app.get("/api/categories", (req: Request, res: Response) => {
 
 app.post("/api/category/", (req: Request, res: Response) => {
   addCategory(req.body)
+    .then((category) => {
+      res.status(200).json(category);
+    })
+    .catch((error) => {
+      res.status(400).json({ message: error.message });
+    });
+});
+
+app.put("/api/category/:id", (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  updateCategory(id, req.body)
     .then((category) => {
       res.status(200).json(category);
     })
