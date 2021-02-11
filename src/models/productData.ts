@@ -1,17 +1,17 @@
-export interface ICategory {
+export interface IProduct {
   id: number;
   ["product_name"]: string;
   ["create_at"]: string;
   ["update_at"]: string;
 }
 
-export class CategoryData {
+export class ProductData {
   public id: number | undefined;
   public product_name: string;
   public create_at: string | undefined;
   public update_at: string | undefined;
 
-  constructor(data: ICategory) {
+  constructor(data: IProduct) {
     const {
       id = undefined,
       product_name,
@@ -34,7 +34,7 @@ export class CategoryData {
     if (product_name) {
       this.product_name = product_name;
     } else {
-      throw Error("Category name is missing");
+      throw Error("product name is missing");
     }
   }
 

@@ -6,6 +6,7 @@ import {
   getCategory,
   updateCategory,
 } from "./controller/categoryController";
+import { getProduct } from "./controller/productController";
 const app = express();
 const port = process.env.PORT || 8081;
 
@@ -41,6 +42,14 @@ app.put("/api/category/:id", (req: Request, res: Response) => {
 app.delete("/api/category/:id", (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   deleteCategory(id)
+    .then((result) => res.status(200).json(result))
+    .catch((error) => {
+      res.status(400).json({ message: error.message });
+    });
+});
+
+app.get("/api/products", (req: Request, res: Response) => {
+  getProduct(req.body)
     .then((result) => res.status(200).json(result))
     .catch((error) => {
       res.status(400).json({ message: error.message });
