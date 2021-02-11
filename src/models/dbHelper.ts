@@ -5,7 +5,6 @@ import config from "../../knexfile";
 const db = knex(config.development);
 
 export const get = async <T>(table: string, condition: T) => {
-  console.log({ condition });
   const result =
     Object.keys(condition).length > 0
       ? await db(table)
