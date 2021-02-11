@@ -43,6 +43,12 @@ app.put("/api/category/:id", (req: Request, res: Response) => {
     });
 });
 
+app.delete("/api/category/:id", (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+
+  res.status(200).send(`Delete Category ID = ${id}`);
+});
+
 app.use(({}, res, {}) => {
   res.status(404).send({ message: `Service Not Found` });
 });
