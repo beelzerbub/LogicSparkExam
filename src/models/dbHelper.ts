@@ -13,6 +13,13 @@ export const getAll = () => {
   return db("categories");
 };
 
-const update = () => {};
+export const update = async <T>(table: string, target: number, data: T) => {
+  const result = await db(table)
+    .where({ id: target })
+    .update({ ...data })
+    .debug(!!process.env.DEV);
+
+  return result;
+};
 
 const remove = () => {};

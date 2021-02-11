@@ -1,7 +1,8 @@
-import { concat, from, of } from "rxjs";
+import { from, of, throwError } from "rxjs";
 import { catchError, concatMap, map, tap, toArray } from "rxjs/operators";
 import { CategoryData, ICategory } from "../models/categoryData";
-import { add } from "../models/dbHelper";
+import { add, update } from "../models/dbHelper";
+import moment from "moment";
 
 const tableName = "categories";
 
@@ -41,5 +42,18 @@ export const addCategory = (input: ICategory | ICategory[]) => {
       })
     )
     .toPromise();
+
   return result;
+};
+
+export const updateCategory = (id: number, input: ICategory) => {
+  try {
+    const data = new CategoryData(input);
+    data.setUpdateAt(moment().format("YYYY-MM-DD HH:mm:ss"));
+    return from(update(tableName, id, data))
+      .pipe(catchError((err) => of({ error: err.message })))
+      .toPromise();
+  } catch (err) {
+    return throwError({ message: err.message }).toPromise();
+  }
 };
