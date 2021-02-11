@@ -3,6 +3,7 @@ import express, { Request, Response } from "express";
 import {
   addCategory,
   deleteCategory,
+  getCategory,
   updateCategory,
 } from "./controller/categoryController";
 import { ICategory } from "./models/categoryData";
@@ -17,13 +18,9 @@ app.post(`/`, (req: Request, res: Response) => {
 });
 
 app.get("/api/categories", (req: Request, res: Response) => {
-  getAll()
-    .then((categories: ICategory[]) => {
-      res.status(200).json(categories);
-    })
-    .catch((error) => {
-      res.status(400).json({ message: error.message });
-    });
+  getCategory(req.body)
+    .then((result) => res.status(200).json(result))
+    .catch((error) => res.status(400).json({ message: error.message }));
 });
 
 app.post("/api/category/", (req: Request, res: Response) => {
