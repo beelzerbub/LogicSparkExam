@@ -8,8 +8,8 @@ exports.up = function (knex) {
         table.increments("id").primary();
         table.string("category_name", 50).notNullable();
         table.unique("category_name");
-        table.timestamp("create_at").notNullable().defaultTo(knex.fn.now());
-        table.timestamp("update_at").notNullable().defaultTo(knex.fn.now());
+        table.timestamp("create_at").defaultTo(knex.fn.now());
+        table.timestamp("update_at").defaultTo(knex.fn.now());
       })
     );
   };
