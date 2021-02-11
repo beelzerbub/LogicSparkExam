@@ -1,15 +1,10 @@
-const { log } = require("console");
-const { from, of, zip, combineLatest, concat } = require("rxjs");
+const { from } = require("rxjs");
 const {
   tap,
   switchMap,
   bufferCount,
   toArray,
-  map,
-  mergeAll,
-  mergeMap,
   concatMap,
-  defaultIfEmpty,
   filter,
 } = require("rxjs/operators");
 
