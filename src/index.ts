@@ -1,5 +1,6 @@
 import bodyParser from "body-parser";
 import express, { Request, response, Response } from "express";
+import { addCategory } from "./controller/categoryController";
 import { ICategory } from "./models/categoryData";
 import { add, getAll } from "./models/dbHelper";
 const app = express();
@@ -23,7 +24,7 @@ app.get("/api/categories", (req: Request, res: Response) => {
 });
 
 app.post("/api/category/", (req: Request, res: Response) => {
-  add(req.body)
+  addCategory(req.body)
     .then((category) => {
       res.status(200).json(category);
     })
