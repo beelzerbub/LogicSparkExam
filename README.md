@@ -4,10 +4,20 @@ Logic Spark Co.,LTD Exam
 
 ---
 
+## POSTMAN
+
+[Postman](https://www.getpostman.com/collections/7b27e3869f3920791cbe)
+
+---
+
 ## Migrate
 
 - `npm run install`
 - `npx knex migrate:latest`
+
+#### _For rollback use command_
+
+- `npx knex migrate:rollback`
 
 ---
 
