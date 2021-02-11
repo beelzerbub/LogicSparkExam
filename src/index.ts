@@ -6,8 +6,6 @@ import {
   getCategory,
   updateCategory,
 } from "./controller/categoryController";
-import { ICategory } from "./models/categoryData";
-import { getAll } from "./models/dbHelper";
 const app = express();
 const port = process.env.PORT || 8081;
 
