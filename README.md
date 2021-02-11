@@ -23,7 +23,17 @@ Logic Spark Co.,LTD Exam
 
 ## Run the app
 
-- `npm run start`
+- **Production Environment**
+
+```
+npm run start
+```
+
+- **Development Environment**
+
+```
+npm run start:dev
+```
 
 ---
 
