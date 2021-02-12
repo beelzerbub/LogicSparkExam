@@ -4,7 +4,7 @@ import { CategoryData, ICategory } from "../models/categoryData";
 import { add, get, remove, update } from "../models/dbHelper";
 import moment from "moment";
 
-const tableName = "categories";
+export const categoryTableName = "categories";
 
 const handleError = (message: string) => {
   return throwError({ message }).toPromise();
@@ -12,7 +12,7 @@ const handleError = (message: string) => {
 
 export const getCategory = (condition: ICategory) => {
   try {
-    return from(get(tableName, condition)).toPromise();
+    return from(get(categoryTableName, condition)).toPromise();
   } catch (err) {
     return handleError(err.message);
   }
@@ -35,7 +35,7 @@ export const addCategory = (input: ICategory | ICategory[]) => {
       .pipe(
         concatMap((each: ICategory) => {
           const data = new CategoryData(each);
-          return from(add(tableName, data))
+          return from(add(categoryTableName, data))
             .pipe(
               map((queryResult) => ({
                 id: queryResult,
@@ -66,7 +66,7 @@ export const updateCategory = (id: number, input: ICategory) => {
   try {
     const data = new CategoryData(input);
     data.setUpdateAt(moment().format("YYYY-MM-DD HH:mm:ss"));
-    return from(update(tableName, id, data))
+    return from(update(categoryTableName, id, data))
       .pipe(catchError((err) => of({ error: err.message })))
 
       .toPromise();
@@ -77,7 +77,7 @@ export const updateCategory = (id: number, input: ICategory) => {
 
 export const deleteCategory = (id: number) => {
   try {
-    return remove(tableName, id);
+    return remove(categoryTableName, id);
   } catch (err) {
     return handleError(err.message);
   }
