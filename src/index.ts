@@ -25,35 +25,33 @@ app.get("/api/categories", (req: Request, res: Response) => {
 app.post("/api/category/", (req: Request, res: Response) => {
   addCategory(req.body)
     .then((result) => res.status(200).json(result))
-    .catch((error) => {
-      res.status(400).json({ message: error.message });
-    });
+    .catch((error) => res.status(400).json({ message: error.message }));
 });
 
 app.put("/api/category/:id", (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   updateCategory(id, req.body)
     .then((result) => res.status(200).json(result))
-    .catch((error) => {
-      res.status(400).json({ message: error.message });
-    });
+    .catch((error) => res.status(400).json({ message: error.message }));
 });
 
 app.delete("/api/category/:id", (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   deleteCategory(id)
     .then((result) => res.status(200).json(result))
-    .catch((error) => {
-      res.status(400).json({ message: error.message });
-    });
+    .catch((error) => res.status(400).json({ message: error.message }));
 });
 
 app.get("/api/products", (req: Request, res: Response) => {
   getProduct(req.body)
     .then((result) => res.status(200).json(result))
-    .catch((error) => {
-      res.status(400).json({ message: error.message });
-    });
+    .catch((error) => res.status(400).json({ message: error.message }));
+});
+
+app.post("/api/products/", (req: Request, res: Response) => {
+  addCategory(req.body)
+    .then((result) => res.status(200).json(result))
+    .catch((error) => res.status(400).json({ message: error.message }));
 });
 
 app.use(({}, res, {}) => {
