@@ -1,8 +1,8 @@
 export interface ICategory {
-  id: number;
-  ["category_name"]: string;
-  ["create_at"]: string;
-  ["update_at"]: string;
+  id: number | undefined;
+  category_name: string;
+  create_at: string | undefined;
+  update_at: string | undefined;
 }
 
 export class CategoryData {
