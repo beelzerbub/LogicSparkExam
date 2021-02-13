@@ -3,9 +3,22 @@ import { from, of } from "rxjs";
 import { catchError, concatMap, map, tap, toArray } from "rxjs/operators";
 
 import { CategoryData, ICategory } from "../models/categoryData";
-import { add, get, handleError, remove, update } from "../models/dbHelper";
+import { add, db, get, handleError, remove, update } from "../models/dbHelper";
+
+interface IRequestGetCategory {
+  condition: {
+    category_name: string | string[];
+  }[];
+}
 
 export const categoryTableName = "categories";
+
+export const getCategory2 = (conditions: IRequestGetCategory) => {
+  const result = from(Array.isArray(conditions) ? conditions : [])
+    .pipe(concatMap((condition) => from(condition).pipe().toPromise()))
+    .toPromise();
+  return of("").toPromise();
+};
 
 export const getCategory = (condition: ICategory) => {
   try {

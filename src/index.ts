@@ -5,6 +5,7 @@ import {
   addCategory,
   deleteCategory,
   getCategory,
+  getCategory2,
   updateCategory,
 } from "./controller/categoryController";
 import { getMovies } from "./controller/moviesController";
@@ -25,7 +26,8 @@ app.post(`/`, (req: Request, res: Response) => {
 });
 
 app.get("/api/categories", (req: Request, res: Response) => {
-  getCategory(req.body)
+  /* getCategory(req.body) */
+  getCategory2(req.body)
     .then((result) => res.status(200).json(result))
     .catch((error) => res.status(400).json({ message: error.message }));
 });
