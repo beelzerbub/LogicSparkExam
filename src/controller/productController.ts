@@ -1,19 +1,12 @@
-import { empty, from, of, throwError } from "rxjs";
-import {
-  catchError,
-  concatAll,
-  concatMap,
-  map,
-  mergeAll,
-  tap,
-  toArray,
-} from "rxjs/operators";
-import { CategoryData, ICategory } from "../models/categoryData";
-import { add, get, remove, update } from "../models/dbHelper";
-import { IProduct, ProductData } from "../models/productData";
-import { ProductGroupData, IProductGroup } from "../models/productGroupData";
-import { addCategory, getCategory } from "./categoryController";
 import moment from "moment";
+import { from, of } from "rxjs";
+import { catchError, concatMap, map, tap, toArray } from "rxjs/operators";
+
+import { CategoryData, ICategory } from "../models/categoryData";
+import { add, get, handleError, remove, update } from "../models/dbHelper";
+import { IProduct, ProductData } from "../models/productData";
+import { IProductGroup, ProductGroupData } from "../models/productGroupData";
+import { addCategory, getCategory } from "./categoryController";
 
 interface IProductReq {
   ["product_name"]: string;
@@ -22,10 +15,6 @@ interface IProductReq {
 
 export const productTableName = "products";
 export const productGroupTableName = "product_groups";
-
-const handleError = (message: string) => {
-  return throwError({ message }).toPromise();
-};
 
 export const getProduct = (condition: IProduct) => {
   try {
