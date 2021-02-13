@@ -9,10 +9,11 @@ import {
   toArray,
 } from "rxjs/operators";
 import { CategoryData, ICategory } from "../models/categoryData";
-import { add, get, remove } from "../models/dbHelper";
+import { add, get, remove, update } from "../models/dbHelper";
 import { IProduct, ProductData } from "../models/productData";
 import { ProductGroupData, IProductGroup } from "../models/productGroupData";
 import { addCategory, getCategory } from "./categoryController";
+import moment from "moment";
 
 interface IProductReq {
   ["product_name"]: string;
@@ -120,6 +121,18 @@ export const addProduct = (input: IProductReq | Array<IProductReq>) => {
       )
       .toPromise();
     return result;
+  } catch (err) {
+    return handleError(err.message);
+  }
+};
+
+export const updateProduct = (id: number, input: IProduct) => {
+  try {
+    const data = new ProductData(input);
+    data.setUpdateAt(moment().format("YYYY-MM-DD HH:mm:ss"));
+    return from(update(productTableName, id, data))
+      .pipe(catchError((err) => of({ error: err.message })))
+      .toPromise();
   } catch (err) {
     return handleError(err.message);
   }
