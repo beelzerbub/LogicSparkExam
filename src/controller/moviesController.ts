@@ -1,8 +1,6 @@
 import { from } from "rxjs";
-import { ICategory } from "../models/categoryData";
 
 import { db, handleError } from "../models/dbHelper";
-import { IProduct } from "../models/productData";
 import { categoryTableName } from "./categoryController";
 import { productGroupTableName, productTableName } from "./productController";
 
