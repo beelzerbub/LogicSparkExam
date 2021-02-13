@@ -9,7 +9,7 @@ import {
   toArray,
 } from "rxjs/operators";
 import { CategoryData, ICategory } from "../models/categoryData";
-import { add, get } from "../models/dbHelper";
+import { add, get, remove } from "../models/dbHelper";
 import { IProduct, ProductData } from "../models/productData";
 import { ProductGroupData, IProductGroup } from "../models/productGroupData";
 import { addCategory, getCategory } from "./categoryController";
@@ -120,6 +120,14 @@ export const addProduct = (input: IProductReq | Array<IProductReq>) => {
       )
       .toPromise();
     return result;
+  } catch (err) {
+    return handleError(err.message);
+  }
+};
+
+export const deleteProduct = (id: number) => {
+  try {
+    return remove(productTableName, id);
   } catch (err) {
     return handleError(err.message);
   }
