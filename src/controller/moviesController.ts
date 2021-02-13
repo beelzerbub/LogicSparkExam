@@ -1,10 +1,9 @@
 import { from } from "rxjs";
-import { handleError } from "../models/dbHelper";
+
+import { db, handleError } from "../models/dbHelper";
 import { IProduct } from "../models/productData";
-import { productGroupTableName, productTableName } from "./productController";
-import { db } from "../models/dbHelper";
-import { tap } from "rxjs/operators";
 import { categoryTableName } from "./categoryController";
+import { productGroupTableName, productTableName } from "./productController";
 
 export const getMovies = (condition: IProduct) => {
   try {
