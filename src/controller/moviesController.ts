@@ -1,12 +1,12 @@
 import { from } from "rxjs";
-import { handleError } from "../models/dbHelper";
-import { IProduct } from "../models/productData";
-import { productGroupTableName, productTableName } from "./productController";
-import { db } from "../models/dbHelper";
-import { tap } from "rxjs/operators";
-import { categoryTableName } from "./categoryController";
+import { ICategory } from "../models/categoryData";
 
-export const getMovies = (condition: IProduct) => {
+import { db, handleError } from "../models/dbHelper";
+import { IProduct } from "../models/productData";
+import { categoryTableName } from "./categoryController";
+import { productGroupTableName, productTableName } from "./productController";
+
+export const getMovies = <T>(condition: T) => {
   try {
     const result =
       Object.keys(condition).length > 0

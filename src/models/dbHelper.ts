@@ -3,8 +3,6 @@ import { throwError } from "rxjs";
 
 import config from "../../knexfile";
 
-// import { CategoryData, ICategory } from "./categoryData";
-
 export const db = knex(config.development);
 
 export const get = async <T>(table: string, condition: T) => {

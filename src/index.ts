@@ -1,5 +1,6 @@
 import bodyParser from "body-parser";
 import express, { Request, Response } from "express";
+
 import {
   addCategory,
   deleteCategory,
@@ -13,6 +14,7 @@ import {
   getProduct,
   updateProduct,
 } from "./controller/productController";
+
 const app = express();
 const port = process.env.PORT || 8081;
 
