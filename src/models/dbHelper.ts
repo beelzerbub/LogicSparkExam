@@ -5,7 +5,7 @@ import config from "../../knexfile";
 
 // import { CategoryData, ICategory } from "./categoryData";
 
-const db = knex(config.development);
+export const db = knex(config.development);
 
 export const get = async <T>(table: string, condition: T) => {
   const result =
@@ -14,6 +14,23 @@ export const get = async <T>(table: string, condition: T) => {
           .where({ ...condition })
           .debug(!!process.env.DEV)
       : await db(table).debug(!!process.env.DEV);
+  return result;
+};
+
+export const join = async <T>(
+  primaryTable: string,
+  foreignTable: Array<{
+    tableName: string;
+    pkColumnName: string;
+    operator: string;
+    fkColumnName: string;
+  }>,
+  condition: T
+) => {
+  const result =
+    Object.keys(condition).length > 0
+      ? await db(primaryTable)
+      : await db(primaryTable).where({ ...condition });
   return result;
 };
 
