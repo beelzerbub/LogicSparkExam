@@ -10,6 +10,7 @@ import {
   addProduct,
   deleteProduct,
   getProduct,
+  updateProduct,
 } from "./controller/productController";
 const app = express();
 const port = process.env.PORT || 8081;
@@ -54,6 +55,13 @@ app.get("/api/products", (req: Request, res: Response) => {
 
 app.post("/api/product/", (req: Request, res: Response) => {
   addProduct(req.body)
+    .then((result) => res.status(200).json(result))
+    .catch((error) => res.status(400).json({ message: error.message }));
+});
+
+app.put("/api/product/:id", (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  updateProduct(id, req.body)
     .then((result) => res.status(200).json(result))
     .catch((error) => res.status(400).json({ message: error.message }));
 });
