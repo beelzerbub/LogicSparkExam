@@ -1,14 +1,11 @@
-import { from, of, throwError } from "rxjs";
-import { catchError, concatMap, map, tap, toArray } from "rxjs/operators";
-import { CategoryData, ICategory } from "../models/categoryData";
-import { add, get, remove, update } from "../models/dbHelper";
 import moment from "moment";
+import { from, of } from "rxjs";
+import { catchError, concatMap, map, tap, toArray } from "rxjs/operators";
+
+import { CategoryData, ICategory } from "../models/categoryData";
+import { add, get, handleError, remove, update } from "../models/dbHelper";
 
 export const categoryTableName = "categories";
-
-const handleError = (message: string) => {
-  return throwError({ message }).toPromise();
-};
 
 export const getCategory = (condition: ICategory) => {
   try {
