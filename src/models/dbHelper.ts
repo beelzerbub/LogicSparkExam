@@ -4,6 +4,16 @@ import config from "../../knexfile";
 
 const db = knex(config.development);
 
+export const get = async <T>(table: string, condition: T) => {
+  const result =
+    Object.keys(condition).length > 0
+      ? await db(table)
+          .where({ ...condition })
+          .debug(!!process.env.DEV)
+      : await db(table).debug(!!process.env.DEV);
+  return result;
+};
+
 export const add = async <T>(table: string, data: T) => {
   const [id] = await db(table).insert(data).debug(!!process.env.DEV);
   return id;

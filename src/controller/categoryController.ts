@@ -1,10 +1,22 @@
 import { from, of, throwError } from "rxjs";
 import { catchError, concatMap, map, tap, toArray } from "rxjs/operators";
 import { CategoryData, ICategory } from "../models/categoryData";
-import { add, remove, update } from "../models/dbHelper";
+import { add, get, remove, update } from "../models/dbHelper";
 import moment from "moment";
 
-const tableName = "categories";
+export const categoryTableName = "categories";
+
+const handleError = (message: string) => {
+  return throwError({ message }).toPromise();
+};
+
+export const getCategory = (condition: ICategory) => {
+  try {
+    return from(get(categoryTableName, condition)).toPromise();
+  } catch (err) {
+    return handleError(err.message);
+  }
+};
 
 export const addCategory = (input: ICategory | ICategory[]) => {
   try {
@@ -23,7 +35,7 @@ export const addCategory = (input: ICategory | ICategory[]) => {
       .pipe(
         concatMap((each: ICategory) => {
           const data = new CategoryData(each);
-          return from(add(tableName, data))
+          return from(add(categoryTableName, data))
             .pipe(
               map((queryResult) => ({
                 id: queryResult,
@@ -46,7 +58,7 @@ export const addCategory = (input: ICategory | ICategory[]) => {
 
     return result;
   } catch (err) {
-    return throwError({ message: err.message }).toPromise();
+    return handleError(err.message);
   }
 };
 
@@ -54,18 +66,19 @@ export const updateCategory = (id: number, input: ICategory) => {
   try {
     const data = new CategoryData(input);
     data.setUpdateAt(moment().format("YYYY-MM-DD HH:mm:ss"));
-    return from(update(tableName, id, data))
+    return from(update(categoryTableName, id, data))
       .pipe(catchError((err) => of({ error: err.message })))
+
       .toPromise();
   } catch (err) {
-    return throwError({ message: err.message }).toPromise();
+    return handleError(err.message);
   }
 };
 
 export const deleteCategory = (id: number) => {
   try {
-    return remove(tableName, id);
+    return remove(categoryTableName, id);
   } catch (err) {
-    return throwError({ message: err.message }).toPromise();
+    return handleError(err.message);
   }
 };
