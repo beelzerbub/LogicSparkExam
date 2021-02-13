@@ -1,5 +1,8 @@
 import knex from "knex";
+import { throwError } from "rxjs";
+
 import config from "../../knexfile";
+
 // import { CategoryData, ICategory } from "./categoryData";
 
 const db = knex(config.development);
@@ -35,4 +38,8 @@ export const update = async <T>(table: string, id: number, data: T) => {
 export const remove = async (table: string, id: number) => {
   const result = await db(table).where({ id }).del().debug(!!process.env.DEV);
   return result;
+};
+
+export const handleError = (message: string) => {
+  return throwError({ message }).toPromise();
 };
