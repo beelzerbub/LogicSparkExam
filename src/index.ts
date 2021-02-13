@@ -6,6 +6,7 @@ import {
   getCategory,
   updateCategory,
 } from "./controller/categoryController";
+import { getMovies } from "./controller/moviesController";
 import {
   addProduct,
   deleteProduct,
@@ -69,6 +70,12 @@ app.put("/api/product/:id", (req: Request, res: Response) => {
 app.delete("/api/product/:id", (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   deleteProduct(id)
+    .then((result) => res.status(200).json(result))
+    .catch((error) => res.status(400).json({ message: error.message }));
+});
+
+app.get("/api/movies", (req: Request, res: Response) => {
+  getMovies(req.body)
     .then((result) => res.status(200).json(result))
     .catch((error) => res.status(400).json({ message: error.message }));
 });
