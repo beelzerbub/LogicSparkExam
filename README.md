@@ -45,12 +45,6 @@ npm run start:dev
 - API Name : **Get All Categories**
 - REST : `/api/categories/`
 
-````
-Params
-
-- Category_name ```string```
-````
-
 ---
 
 ### - Get List of Products
